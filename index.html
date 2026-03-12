@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Nuevo Nexus Salón</title>
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Nexus Salón" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <section id="pinScreen" class="pin-screen">
+      <div class="pin-card glass">
+        <div class="brand-lockup">
+          <div class="brand-mark">N</div>
+          <div>
+            <h1>Nuevo Nexus Salón</h1>
+            <p>Control premium para barbería y salón</p>
+          </div>
+        </div>
+
+        <div class="intro-shot glass-soft">
+          <div class="shot-copy">
+            <span class="eyebrow">PWA</span>
+            <h2>Tu operación en modo elegante.</h2>
+            <p>Citas, ingresos, clientes y servicios con estética de app móvil seria.</p>
+          </div>
+          <div class="mini-dashboard">
+            <div class="mini-card">
+              <small>Hoy</small>
+              <strong>12</strong>
+              <span>citas</span>
+            </div>
+            <div class="mini-card accent">
+              <small>Revenue</small>
+              <strong>$345</strong>
+              <span>estimado</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pin-block">
+          <label for="pinInput">PIN de acceso</label>
+          <input id="pinInput" inputmode="numeric" maxlength="4" placeholder="0000" />
+          <button id="pinBtn" class="primary-btn">Entrar</button>
+          <small class="muted">Demo: 2026</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="mainShell" class="main-shell hidden">
+      <header class="topbar">
+        <div class="brand-lockup compact">
+          <div class="brand-mark small">N</div>
+          <div>
+            <h1>Nuevo Nexus Salón</h1>
+            <p>Agenda premium</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button id="installBtn" class="ghost-btn hidden">Instalar</button>
+          <button id="logoutBtn" class="icon-btn" aria-label="Cerrar">⎋</button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section id="view-home" class="view active">
+          <section class="hero glass">
+            <div>
+              <span class="eyebrow">Dashboard</span>
+              <h2>Tu salón en piloto automático</h2>
+              <p>Opera con foco: métricas rápidas, agenda visible y cero caos de libreta.</p>
+            </div>
+            <div class="hero-actions">
+              <button id="quickAddBtn" class="primary-btn">Nueva cita</button>
+              <button id="gotoAgendaBtn" class="secondary-btn">Ver agenda</button>
+            </div>
+          </section>
+
+          <section class="metrics-grid">
+            <article class="metric-card glass">
+              <span>Citas de hoy</span>
+              <strong id="todayCount">0</strong>
+              <small>pipeline del día</small>
+            </article>
+            <article class="metric-card glass">
+              <span>Ingreso estimado</span>
+              <strong id="todayRevenue">$0.00</strong>
+              <small>potencial del día</small>
+            </article>
+            <article class="metric-card glass">
+              <span>Completadas</span>
+              <strong id="completedCount">0</strong>
+              <small>servicios cerrados</small>
+            </article>
+            <article class="metric-card glass">
+              <span>Ingreso cobrado</span>
+              <strong id="completedRevenue">$0.00</strong>
+              <small>cashflow real</small>
+            </article>
+          </section>
+
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Hoy</span>
+                <h3>Agenda del día</h3>
+              </div>
+              <input type="date" id="filterDate" />
+            </div>
+            <div id="timeline" class="timeline"></div>
+          </section>
+        </section>
+
+        <section id="view-agenda" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Operación</span>
+                <h3>Nueva cita</h3>
+              </div>
+            </div>
+
+            <form id="appointmentForm" class="form-grid">
+              <label>
+                <span>Cliente</span>
+                <input type="text" id="clientName" required placeholder="Nombre del cliente" />
+              </label>
+
+              <label>
+                <span>Teléfono</span>
+                <input type="tel" id="clientPhone" placeholder="787-000-0000" />
+              </label>
+
+              <label>
+                <span>Servicio</span>
+                <select id="service" required>
+                  <option value="">Selecciona</option>
+                  <option value="Corte clásico" data-price="20">Corte clásico</option>
+                  <option value="Fade" data-price="25">Fade</option>
+                  <option value="Barba" data-price="15">Barba</option>
+                  <option value="Corte + Barba" data-price="35">Corte + Barba</option>
+                  <option value="Lavado + estilo" data-price="18">Lavado + estilo</option>
+                  <option value="Corte premium" data-price="45">Corte premium</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Precio</span>
+                <input type="number" id="price" required step="0.01" placeholder="0.00" />
+              </label>
+
+              <label>
+                <span>Fecha</span>
+                <input type="date" id="date" required />
+              </label>
+
+              <label>
+                <span>Hora</span>
+                <input type="time" id="time" required />
+              </label>
+
+              <label>
+                <span>Barbero</span>
+                <input type="text" id="barber" placeholder="Nombre del barbero" />
+              </label>
+
+              <label>
+                <span>Estado</span>
+                <select id="status">
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Confirmada">Confirmada</option>
+                  <option value="Completada">Completada</option>
+                  <option value="Cancelada">Cancelada</option>
+                  <option value="No-show">No-show</option>
+                </select>
+              </label>
+
+              <label class="full">
+                <span>Notas</span>
+                <textarea id="notes" rows="3" placeholder="Detalles de la cita"></textarea>
+              </label>
+
+              <div class="full form-actions">
+                <button type="submit" class="primary-btn">Guardar cita</button>
+                <button type="button" id="resetBtn" class="secondary-btn">Limpiar</button>
+              </div>
+            </form>
+          </section>
+        </section>
+
+        <section id="view-clientes" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">CRM</span>
+                <h3>Clientes</h3>
+              </div>
+            </div>
+            <div id="clientsList" class="list-stack"></div>
+          </section>
+        </section>
+
+        <section id="view-servicios" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Pricing</span>
+                <h3>Servicios</h3>
+              </div>
+            </div>
+            <div id="servicesList" class="list-stack"></div>
+          </section>
+        </section>
+
+        <section id="view-mas" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Más</span>
+                <h3>Ajustes rápidos</h3>
+              </div>
+            </div>
+            <div class="settings-grid">
+              <article class="setting-card glass-soft">
+                <strong>Firebase listo</strong>
+                <p>Pega tus credenciales y el backend queda en cancha.</p>
+              </article>
+              <article class="setting-card glass-soft">
+                <strong>PWA instalable</strong>
+                <p>Ícono, manifest y service worker ya incluidos.</p>
+              </article>
+              <article class="setting-card glass-soft">
+                <strong>Próxima fase</strong>
+                <p>Comisiones, clientes reales, login y branding final.</p>
+              </article>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <nav class="bottom-nav glass">
+        <button class="nav-btn active" data-view="home">Home</button>
+        <button class="nav-btn" data-view="agenda">Agenda</button>
+        <button class="nav-btn" data-view="clientes">Clientes</button>
+        <button class="nav-btn" data-view="servicios">Servicios</button>
+        <button class="nav-btn" data-view="mas">Más</button>
+      </nav>
+    </section>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
