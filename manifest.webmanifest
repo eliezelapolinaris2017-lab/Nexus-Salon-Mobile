@@ -1,0 +1,22 @@
+{
+  "name": "Nuevo Nexus Salón V4",
+  "short_name": "Nexus Salón",
+  "description": "PWA premium negra para barbería o salón con Firestore simplificado y UI mejorada.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
