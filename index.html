@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Nuevo Nexus Salón</title>
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Nexus Salón" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <section id="pinScreen" class="pin-screen">
+      <div class="pin-card glass">
+        <div class="pin-top">
+          <div class="brand-lockup">
+            <div class="brand-mark">N</div>
+            <div>
+              <h1>Nuevo Nexus Salón</h1>
+              <p>Luxury booking control</p>
+            </div>
+          </div>
+          <span class="pin-badge">PWA</span>
+        </div>
+
+        <div class="showcase glass-soft">
+          <div class="showcase-copy">
+            <span class="eyebrow">Black edition</span>
+            <h2>Operación premium. Flujo serio.</h2>
+            <p>Agenda, clientes, servicios e ingresos en una experiencia móvil más real, más limpia y con mejor presencia de marca.</p>
+          </div>
+          <div class="showcase-cards">
+            <article class="show-card">
+              <small>Booked</small>
+              <strong>12</strong>
+              <span>today</span>
+            </article>
+            <article class="show-card highlight">
+              <small>Revenue</small>
+              <strong>$480</strong>
+              <span>live flow</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pin-block">
+          <label for="pinInput">PIN de acceso</label>
+          <input id="pinInput" inputmode="numeric" maxlength="4" placeholder="2026" />
+          <button id="pinBtn" class="primary-btn">Entrar al sistema</button>
+          <small class="muted">PIN demo: 2026</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="mainShell" class="main-shell hidden">
+      <header class="topbar">
+        <div class="brand-lockup compact">
+          <div class="brand-mark small">N</div>
+          <div>
+            <h1>Nuevo Nexus Salón</h1>
+            <p>Booking & revenue control</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button id="installBtn" class="ghost-btn hidden">Instalar</button>
+          <button id="logoutBtn" class="icon-btn" aria-label="Cerrar sesión">⎋</button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section id="view-home" class="view active">
+          <section class="hero glass">
+            <div class="hero-copy">
+              <span class="eyebrow">Dashboard</span>
+              <h2>El negocio visible de un vistazo</h2>
+              <p>Sin libreta rota, sin caos, sin “déjame buscar”. Todo en tiempo real con estética de app seria.</p>
+            </div>
+            <div class="hero-actions">
+              <button id="quickAddBtn" class="primary-btn">Nueva cita</button>
+              <button id="gotoAgendaBtn" class="secondary-btn">Abrir agenda</button>
+            </div>
+          </section>
+
+          <section class="metrics-grid">
+            <article class="metric-card glass">
+              <span>Citas hoy</span>
+              <strong id="todayCount">0</strong>
+              <small>pipeline activo</small>
+            </article>
+            <article class="metric-card glass">
+              <span>Ingreso estimado</span>
+              <strong id="todayRevenue">$0.00</strong>
+              <small>facturación potencial</small>
+            </article>
+            <article class="metric-card glass">
+              <span>Completadas</span>
+              <strong id="completedCount">0</strong>
+              <small>órdenes cerradas</small>
+            </article>
+            <article class="metric-card glass">
+              <span>Ingreso cobrado</span>
+              <strong id="completedRevenue">$0.00</strong>
+              <small>cashflow confirmado</small>
+            </article>
+          </section>
+
+          <section class="panel-row">
+            <section class="glass panel pad">
+              <div class="section-head">
+                <div>
+                  <span class="eyebrow">Hoy</span>
+                  <h3>Agenda del día</h3>
+                </div>
+                <input type="date" id="filterDate" />
+              </div>
+              <div id="timeline" class="timeline"></div>
+            </section>
+
+            <section class="glass panel pad status-panel">
+              <div class="section-head">
+                <div>
+                  <span class="eyebrow">Backend</span>
+                  <h3>Estado Firebase</h3>
+                </div>
+              </div>
+              <div id="firebaseStatus" class="status-live">
+                <div class="status-dot"></div>
+                <div>
+                  <strong>Conectando...</strong>
+                  <p>Verificando Firestore para dejar esto corriendo de verdad.</p>
+                </div>
+              </div>
+              <div class="live-note">Tu configuración ya va embebida. Aquí no estamos vendiendo humo.</div>
+            </section>
+          </section>
+        </section>
+
+        <section id="view-agenda" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Operación</span>
+                <h3>Nueva cita</h3>
+              </div>
+            </div>
+
+            <form id="appointmentForm" class="form-grid">
+              <label>
+                <span>Cliente</span>
+                <input type="text" id="clientName" required placeholder="Nombre del cliente" />
+              </label>
+
+              <label>
+                <span>Teléfono</span>
+                <input type="tel" id="clientPhone" placeholder="787-000-0000" />
+              </label>
+
+              <label>
+                <span>Servicio</span>
+                <select id="service" required>
+                  <option value="">Selecciona</option>
+                  <option value="Corte clásico" data-price="20">Corte clásico</option>
+                  <option value="Fade premium" data-price="30">Fade premium</option>
+                  <option value="Barba" data-price="18">Barba</option>
+                  <option value="Corte + Barba" data-price="40">Corte + Barba</option>
+                  <option value="Lavado + estilo" data-price="22">Lavado + estilo</option>
+                  <option value="Corte premium" data-price="50">Corte premium</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Precio</span>
+                <input type="number" id="price" required step="0.01" placeholder="0.00" />
+              </label>
+
+              <label>
+                <span>Fecha</span>
+                <input type="date" id="date" required />
+              </label>
+
+              <label>
+                <span>Hora</span>
+                <input type="time" id="time" required />
+              </label>
+
+              <label>
+                <span>Barbero</span>
+                <input type="text" id="barber" placeholder="Nombre del barbero" />
+              </label>
+
+              <label>
+                <span>Estado</span>
+                <select id="status">
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Confirmada">Confirmada</option>
+                  <option value="Completada">Completada</option>
+                  <option value="Cancelada">Cancelada</option>
+                  <option value="No-show">No-show</option>
+                </select>
+              </label>
+
+              <label class="full">
+                <span>Notas</span>
+                <textarea id="notes" rows="3" placeholder="Detalles de la cita"></textarea>
+              </label>
+
+              <div class="full form-actions">
+                <button type="submit" class="primary-btn">Guardar cita</button>
+                <button type="button" id="resetBtn" class="secondary-btn">Limpiar</button>
+              </div>
+            </form>
+          </section>
+        </section>
+
+        <section id="view-clientes" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Clientes</span>
+                <h3>Historial resumido</h3>
+              </div>
+            </div>
+            <div id="clientsList" class="list-stack"></div>
+          </section>
+        </section>
+
+        <section id="view-servicios" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Servicios</span>
+                <h3>Pricing actual</h3>
+              </div>
+            </div>
+            <div id="servicesList" class="list-stack"></div>
+          </section>
+        </section>
+
+        <section id="view-mas" class="view">
+          <section class="glass panel pad">
+            <div class="section-head">
+              <div>
+                <span class="eyebrow">Más</span>
+                <h3>Centro de control</h3>
+              </div>
+            </div>
+            <div class="settings-grid">
+              <article class="setting-card glass-soft">
+                <strong>Firestore activo</strong>
+                <p>La app ya apunta a tu proyecto <b>nexus-barber-shop</b>.</p>
+              </article>
+              <article class="setting-card glass-soft">
+                <strong>PWA lista</strong>
+                <p>Instalable desde el navegador móvil como si fuera app.</p>
+              </article>
+              <article class="setting-card glass-soft">
+                <strong>Siguiente sprint</strong>
+                <p>CRUD completo, comisiones, login real y branding final con tu logo.</p>
+              </article>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <nav class="bottom-nav glass">
+        <button class="nav-btn active" data-view="home">Home</button>
+        <button class="nav-btn" data-view="agenda">Agenda</button>
+        <button class="nav-btn" data-view="clientes">Clientes</button>
+        <button class="nav-btn" data-view="servicios">Servicios</button>
+        <button class="nav-btn" data-view="mas">Más</button>
+      </nav>
+    </section>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
